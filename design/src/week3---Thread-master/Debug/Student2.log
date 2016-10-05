@@ -1,0 +1,10 @@
+﻿  View2.cpp
+  StudentCtr.cpp
+  Student2.cpp
+  Main.cpp
+  DAO.cpp
+  Generating Code...
+c:\users\phung\onedrive\documents\visual studio 2015\projects\week3---thread-master\studentctr.cpp(44): warning C4715: 'CompareBy::operator()': not all control paths return a value
+c:\users\phung\onedrive\documents\visual studio 2015\projects\week3---thread-master\view2.cpp(114): warning C4715: 'View2::showEdit': not all control paths return a value
+  Student2.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\week3---Thread-master\Debug\Student2.exe
+  Student2.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\week3---Thread-master\Debug\Student2.pdb (Partial PDB)

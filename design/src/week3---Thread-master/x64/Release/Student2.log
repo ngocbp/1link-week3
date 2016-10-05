@@ -1,0 +1,13 @@
+﻿  DAO.cpp
+DAO.cpp(40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Main.cpp
+  Student2.cpp
+  StudentCtr.cpp
+  View2.cpp
+  Generating code
+c:\users\hongc\documents\visual studio 2015\projects\student\student2\studentctr.cpp(42): warning C4715: 'CompareBy::operator()': not all control paths return a value
+c:\users\hongc\documents\visual studio 2015\projects\student\student2\view2.cpp(97): warning C4715: 'View2::showEdit': not all control paths return a value
+  All 410 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Student2.vcxproj -> C:\Users\hongc\Documents\Visual Studio 2015\Projects\Student\x64\Release\Student2.exe
+  Student2.vcxproj -> C:\Users\hongc\Documents\Visual Studio 2015\Projects\Student\x64\Release\Student2.pdb (Full PDB)
