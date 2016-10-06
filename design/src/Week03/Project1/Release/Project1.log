@@ -1,0 +1,3 @@
+﻿  Thread.cpp
+Thread.obj : error LNK2005: _main already defined in Main.obj
+C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\Week02\Release\Project1.exe : fatal error LNK1169: one or more multiply defined symbols found

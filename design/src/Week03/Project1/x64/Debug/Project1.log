@@ -1,0 +1,12 @@
+﻿  View.cpp
+  Thread.cpp
+  StudentController.cpp
+  Student.cpp
+  Main.cpp
+  DAO.cpp
+c:\users\phung\onedrive\documents\visual studio 2015\projects\week02\project1\dao.cpp(41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+c:\users\phung\onedrive\documents\visual studio 2015\projects\week02\project1\main.cpp(95): warning C4717: 'checkNewFile': recursive on all control paths, function will cause runtime stack overflow
+c:\users\phung\onedrive\documents\visual studio 2015\projects\week02\project1\view.cpp(88): warning C4715: 'View::showEdit': not all control paths return a value
+  Project1.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\Week02\x64\Debug\Project1.exe
+  Project1.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\Week02\x64\Debug\Project1.pdb (Partial PDB)
