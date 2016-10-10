@@ -1,15 +1,19 @@
 #include "DAO.h"
 #include<string>
 #include<fstream>
+#include<mutex>
 
+mutex mu;
 
 void DAO::writeFileThread(string path, string s)
 {
+	mu.lock();
 	fstream f;
 	f.open(path, ios::out | ios::app);
 	f << s;
 	f.close();
 	cout << "new string: " << s << endl;
+	mu.unlock();
 }
 
 string DAO::readFileThread(string path)
@@ -25,12 +29,14 @@ string DAO::readFileThread(string path)
 
 bool DAO::writeFile(Student st, string path)
 {
+	mu.lock();
 	fstream f;
 	f.open(path, ios::out | ios::app);
 	f << st.getid() << "\t" << st.getname() << "\t" << st.getaddress() << "\t" << st.getsex() << "\t";
 	f << st.getmath() << "\t" << st.getphys() << "\t" << st.getchem() << endl;
 	f.close();
 	return true;
+	mu.unlock();
 }
 
 string DAO::readFile()

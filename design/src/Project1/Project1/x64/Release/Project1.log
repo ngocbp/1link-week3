@@ -1,8 +1,8 @@
-﻿  Main.cpp
+﻿  StudentController.cpp
   Generating code
-  2 of 565 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  0 of 596 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    46 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Project1.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\Week02\x64\Release\Project1.exe
   Project1.vcxproj -> C:\Users\phung\OneDrive\Documents\Visual Studio 2015\Projects\Week02\x64\Release\Project1.pdb (Full PDB)

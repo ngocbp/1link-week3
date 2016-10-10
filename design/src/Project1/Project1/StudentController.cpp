@@ -8,10 +8,17 @@ void StudentController::add(string path) {
 	View v;
 	Student st = v.showAdd();
 	DAO dao;
-	if (dao.writeFile(st, path)) {
-		cout << "add success" << endl;
+	if (checkID(st.getid()))
+	{
+		cout << "Student exist";
 	}
-	else cout << "fail" << endl;
+	else {
+		if (dao.writeFile(st, "output.txt")) {
+			cout << "add success" << endl;
+		}
+		else cout << "fail" << endl;
+	}
+	
 }
 
 void StudentController::showAll()
@@ -19,7 +26,7 @@ void StudentController::showAll()
 	DAO dao;
 	View v;
 	Student st;
-	list<Student> list1 = dao.readList("output.txt");
+	list<Student> list1 = dao.readList("ouput.txt");
 	list<Student>::iterator it;
 	for ( it = list1.begin(); it != list1.end(); it++)
 	{
@@ -31,6 +38,50 @@ void StudentController::showAll()
 		st.setphys((*it).getphys());
 		st.setchem((*it).getchem());
 		v.showOne(st);
+	}
+}
+
+struct CompareBy
+{
+	const string SORT_FIELD;
+	CompareBy(const string& sort_field = "name") :SORT_FIELD(sort_field)
+	{
+		/* validate sort_field */
+	}
+
+	bool operator()(Student& st1, Student& st2)
+	{
+		if (SORT_FIELD == "name")
+			return st1.getname() < st2.getname();
+		else if (SORT_FIELD == "sum")
+			return st1.getmath() + st1.getphys() + st1.getchem() < st2.getmath() + st2.getphys() + st2.getchem();
+		else if (SORT_FIELD == "id")
+			return st1.getid() < st2.getid();
+	}
+};
+
+void StudentController::sort(list<Student> list1)
+{
+	View v;
+	switch (v.showSortMenu())
+	{
+	case 1: {//sort by id
+		list1.sort(CompareBy("id"));
+		v.showList(list1);
+		break;
+	}
+	case 2: {//sort by name
+		list1.sort(CompareBy("name"));
+		v.showList(list1);
+		break;
+	}
+	case 3: {//sort by sum
+		list1.sort(CompareBy("sum"));
+		v.showList(list1);
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -104,7 +155,7 @@ bool StudentController::del() {
 	}
 	return true;
 }
-list<Student> StudentController::searchID() {
+void StudentController::searchID() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -125,9 +176,9 @@ list<Student> StudentController::searchID() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
-list<Student> StudentController::searchName() {
+void StudentController::searchName() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -150,9 +201,9 @@ list<Student> StudentController::searchName() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
-list<Student> StudentController::searchSum() {
+void StudentController::searchSum() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -174,9 +225,9 @@ list<Student> StudentController::searchSum() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
-list<Student> StudentController::searchMath() {
+void StudentController::searchMath() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -197,10 +248,10 @@ list<Student> StudentController::searchMath() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
 
-list<Student> StudentController::searchChem() {
+void StudentController::searchChem() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -221,9 +272,22 @@ list<Student> StudentController::searchChem() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
-list<Student> StudentController::searchPhys() {
+bool StudentController::checkID(int id)
+{
+	DAO dao;
+	list<Student> list1 = dao.readList("output.txt");
+	list<Student>::iterator it;
+	for (it = list1.begin(); it != list1.end() ; it++)
+	{
+		if ((*it).getid() == id) {
+			return true;
+		}
+	}
+	return false;
+}
+void StudentController::searchPhys() {
 	Student st;
 	DAO dao;
 	list<Student> list1, result;
@@ -244,7 +308,7 @@ list<Student> StudentController::searchPhys() {
 			result.push_back(st);
 		}
 	}
-	return result;
+	sort(result);
 }
 void StudentController::statistical()
 {

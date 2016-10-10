@@ -12,5 +12,6 @@ public:
 	int showSearchFrm();
 	Student showEdit(Student);
 	void showOne(Student);
+	int showSortMenu();
 	void statistical(int, int, int, int, int);
 };

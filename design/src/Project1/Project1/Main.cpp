@@ -32,11 +32,12 @@ void WINAPI list1() {
 			string file_path = path + findData.cFileName;
 			auto it = std::find(listFile.begin(), listFile.end(), file_path);
 			if (it == listFile.end()) {
-
+				StudentController sc;
 				DAO dao;
 				list<Student> list1 = dao.readList(file_path.c_str());
 				list<Student>::iterator it;
 				for (it = list1.begin(); it != list1.end(); it++) {
+					
 					dao.writeFile(*it, "note.txt");
 				}
 			}
@@ -57,6 +58,8 @@ const std::string currentDateTime() {
 
 list<string> load() {
 	list<string> list;
+	StudentController sc;
+	DAO dao;
 	string path = "C:\\Users\\phung\\OneDrive\\Documents\\Visual Studio 2015\\Projects\\Week02\\Project1\\content\\";
 	string filter = "*.txt";
 	string full = path + filter;
@@ -67,7 +70,6 @@ list<string> load() {
 	do {
 		string link = path + fileName.cFileName;
 		list.push_back(link);
-
 	} while (FindNextFile(hFile, &fileName) > 0);
 	return list;
 }
@@ -95,7 +97,19 @@ void checkNewFile() {
 					cout << "new file is empty" << endl;
 				}
 				else {
-					dao.writeFileThread("note.txt", data);
+					StudentController sc;
+					list<Student> list1 = dao.readList(str);
+					list<Student>::iterator it;
+					for (it = list1.begin(); it != list1.end(); it++)
+					{
+						if (sc.checkID((*it).getid())) {
+							continue;
+						}
+						else {
+							dao.writeFileThread("note.txt", data);
+							//cout << "new string: " << data;
+						}
+					}
 				}
 			}
 		}
@@ -109,7 +123,7 @@ void checkNewFile() {
 }
 
 int main() {
-	string path = "C:/Users/phung/OneDrive/Documents/Visual Studio 2015/Projects/Week02/Project1/note.txt";
+	string path = "C:/Users/phung/OneDrive/Documents/Visual Studio 2015/Projects/Week02/Project1/output.txt";
 	checkPoint = currentDateTime();
 	thread reload(checkNewFile);
 	View v;

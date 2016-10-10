@@ -92,6 +92,15 @@ void View::showOne(Student st)
 	cout << st.getid() << "\t" << st.getname() << st.getaddress() << "\t" << st.getsex() << "\t" << st.getmath() << "\t" << st.getphys() << "\t" << st.getchem() << endl;
 }
 
+int View::showSortMenu()
+{
+	int choice;
+	cout << "Sort by:" << endl;
+	cout << "1.ID\n2.Name\n3.Sum\n";
+	cin >> choice;
+	return choice;
+}
+
 void View::statistical(int n, int a, int b, int c, int d)
 {
 	cout << "Co tong so " << n << " sinh vien trong do co: " << endl;
