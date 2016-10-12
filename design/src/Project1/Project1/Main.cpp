@@ -19,6 +19,8 @@ vector<string> listFile;
 string checkPoint;
 
 void WINAPI list1() {
+	StudentController sc;
+	View v;
 	string path = "C:\\Users\\phung\\OneDrive\\Documents\\Visual Studio 2015\\Projects\\Week02\\Project1\\content\\";
 	string search = "*.txt";
 	string fullLink = path + search;
@@ -37,95 +39,100 @@ void WINAPI list1() {
 				list<Student> list1 = dao.readList(file_path.c_str());
 				list<Student>::iterator it;
 				for (it = list1.begin(); it != list1.end(); it++) {
-					
-					dao.writeFile(*it, "note.txt");
-				}
-			}
-		} while (FindNextFile(hFind, &findData) > 0);
-		Sleep(3000);
-	}
-}
-
-const std::string currentDateTime() {
-	time_t     now = time(0);
-	struct tm  tstruct;
-	char       buf[80];
-	tstruct = *localtime(&now);
-	strftime(buf, sizeof(buf), "%Y%m%d%H%M%S", &tstruct);
-	string date_now = (string)buf;
-	return date_now;
-}
-
-list<string> load() {
-	list<string> list;
-	StudentController sc;
-	DAO dao;
-	string path = "C:\\Users\\phung\\OneDrive\\Documents\\Visual Studio 2015\\Projects\\Week02\\Project1\\content\\";
-	string filter = "*.txt";
-	string full = path + filter;
-
-	WIN32_FIND_DATA fileName;
-	HANDLE hFile;
-	hFile = FindFirstFile(full.c_str(), &fileName);
-	do {
-		string link = path + fileName.cFileName;
-		list.push_back(link);
-	} while (FindNextFile(hFile, &fileName) > 0);
-	return list;
-}
-
-void checkNewFile() {
-	list<string> listSourceFile = load();
-	char timeStr[100] = "";
-	struct stat buf;
-	string dateBuf;
-	string timeBuf;
-	DAO dao;
-	while (!listSourceFile.empty()) {
-		string str = listSourceFile.back();
-		listSourceFile.pop_back();//lay 1 link de so sanh
-
-		const char* cstr = str.c_str();
-		if (!stat(cstr, &buf)) {
-			strftime(timeStr, 100, "%Y%m%d%H%M%S", localtime(&buf.st_mtime));
-			string s(timeStr);
-			if (s > checkPoint) {
-				system("cls");
-				//cout<<str<<endl;
-				string data = dao.readFileThread(str);
-				if (data == "") {
-					cout << "new file is empty" << endl;
-				}
-				else {
-					StudentController sc;
-					list<Student> list1 = dao.readList(str);
-					list<Student>::iterator it;
-					for (it = list1.begin(); it != list1.end(); it++)
+					if (sc.checkID((*it).getid()) == false)
 					{
-						if (sc.checkID((*it).getid())) {
-							continue;
-						}
-						else {
-							dao.writeFileThread("note.txt", data);
-							//cout << "new string: " << data;
-						}
+						dao.writeFile(*it, "output.txt");
+						v.showOne((*it));
+						
 					}
 				}
+				
 			}
-		}
-		else {
-			continue;
-		}
+		} while (FindNextFile(hFind, &findData) > 0);
+		Sleep(1000);
 	}
-	checkPoint = currentDateTime();
-	Sleep(20000);
-	checkNewFile();
 }
+
+//const std::string currentDateTime() {
+//	time_t     now = time(0);
+//	struct tm  tstruct;
+//	char       buf[80];
+//	tstruct = *localtime(&now);
+//	////strftime(buf, sizeof(buf), "%Y%m%d%H%M%S", &tstruct);
+//	string date_now = (string)buf;
+//	return date_now;
+//}
+//
+//list<string> load() {
+//	list<string> list;
+//	StudentController sc;
+//	DAO dao;
+//	string path = "C:\\Users\\phung\\OneDrive\\Documents\\Visual Studio 2015\\Projects\\Week02\\Project1\\content\\";
+//	string filter = "*.txt";
+//	string full = path + filter;
+//
+//	WIN32_FIND_DATA fileName;
+//	HANDLE hFile;
+//	hFile = FindFirstFile(full.c_str(), &fileName);
+//	do {
+//		string link = path + fileName.cFileName;
+//		list.push_back(link);
+//	} while (FindNextFile(hFile, &fileName) > 0);
+//	return list;
+//}
+//
+//void checkNewFile() {
+//	list<string> listSourceFile = load();
+//	char timeStr[100] = "";
+//	struct stat buf;
+//	string dateBuf;
+//	string timeBuf;
+//	DAO dao;
+//	while (!listSourceFile.empty()) {
+//		string str = listSourceFile.back();
+//		listSourceFile.pop_back();//lay 1 link de so sanh
+//
+//		const char* cstr = str.c_str();
+//		if (!stat(cstr, &buf)) {
+//			strftime(timeStr, 100, "%Y%m%d%H%M%S", localtime(&buf.st_mtime));
+//			string s(timeStr);
+//			if (s > checkPoint) {
+//				system("cls");
+//				//cout<<str<<endl;
+//				string data = dao.readFileThread(str);
+//				if (data == "") {
+//					cout << "new file is empty" << endl;
+//				}
+//				else {
+//					StudentController sc;
+//					list<Student> list1 = dao.readList(str);
+//					list<Student>::iterator it;
+//					for (it = list1.begin(); it != list1.end(); it++)
+//					{
+//						if (sc.checkID((*it).getid())) {
+//							continue;
+//						}
+//						else {
+//							dao.writeFileThread("note.txt", data);
+//							//cout << "new string: " << data;
+//						}
+//					}
+//				}
+//			}
+//		}
+//		else {
+//			continue;
+//		}
+//	}
+//	checkPoint = currentDateTime();
+//	Sleep(20000);
+//	checkNewFile();
+//}
 
 int main() {
 	string path = "C:/Users/phung/OneDrive/Documents/Visual Studio 2015/Projects/Week02/Project1/output.txt";
-	checkPoint = currentDateTime();
-	thread reload(checkNewFile);
+	//checkPoint = currentDateTime();
+	thread reload(list1);
 	View v;
 	StudentController sc;
 	int choice;

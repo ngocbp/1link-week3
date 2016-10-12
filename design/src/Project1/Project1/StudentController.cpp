@@ -26,7 +26,7 @@ void StudentController::showAll()
 	DAO dao;
 	View v;
 	Student st;
-	list<Student> list1 = dao.readList("ouput.txt");
+	list<Student> list1 = dao.readList("output.txt");
 	list<Student>::iterator it;
 	for ( it = list1.begin(); it != list1.end(); it++)
 	{
